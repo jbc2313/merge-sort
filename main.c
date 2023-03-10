@@ -19,7 +19,7 @@ void sort(int *pntr, int low, int mid, int high) {
         lowArr[x] = pntr[low + x];
     };
     for (y = 0; y < nHigh; y++) {
-        highArr[y] = pntr[mid + low + y];
+        highArr[y] = pntr[mid + 1 + y];
     };
     
     // merge temp arrays back together pntr[low...high]
@@ -59,9 +59,9 @@ void sort(int *pntr, int low, int mid, int high) {
 void merge (int *pntr, int low, int high) {
     if ( low < high ) {
         // (low + high)/2 will work too, below prevents overflow 
-        int mid = low + (high - 1) / 2;
+        int mid = low + (high - low) / 2;
         merge(pntr, low, mid);
-        merge(pntr, mid+low, high);
+        merge(pntr, mid + 1, high);
         sort(pntr, low, mid, high);
 
     }
@@ -70,11 +70,11 @@ void merge (int *pntr, int low, int high) {
 
 
 int main() {
-    int array[] = { 2, 12, 3, 1, 29, 9, 8, 15, 13 };
+    int array[] = { 7, 2, 12, 3, 1, 29, 9, 8, 15, 13 };
     int size = sizeof(array) / sizeof(array[0]);
     listArray(array, size);
     merge(array, 0, size - 1);
-    printf("Array was sorted!");
+    printf("Array was sorted!\n");
     listArray(array, size);
     return 0;
 };
